@@ -1,0 +1,13 @@
+*.exe
+*.o
+*.elf
+*.hex
+*.eep
+**/Debug/**
+**/Release/**
+**/out/**
+.DS_Store
+*/.DS_Store
+**/.vs/**
+*.vcxproj.user
+workspace.xml

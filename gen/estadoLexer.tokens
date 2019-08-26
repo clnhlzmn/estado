@@ -1,0 +1,11 @@
+T__0=1
+T__1=2
+T__2=3
+NATURAL=4
+TEXT=5
+ID=6
+WHITESPACE=7
+COMMENT=8
+'state'=1
+'{'=2
+'}'=3
