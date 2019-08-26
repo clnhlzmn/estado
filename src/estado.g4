@@ -2,11 +2,19 @@
 grammar estado;
 
 file
-    : state* EOF
+    : (state | fun)* EOF
     ;
 
 state
-    : 'state' ID '{' '}'
+    : 'state' ID '{' (state | fun | handler)* '}'
+    ;
+
+fun
+    : 'fun' ID '(' ')' '{' '}'
+    ;
+
+handler
+    : 'on' ID
     ;
 
 NATURAL : ('0'..'9')+ ;

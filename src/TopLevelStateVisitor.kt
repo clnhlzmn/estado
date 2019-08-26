@@ -1,5 +1,5 @@
 
-class FileVisitor: estadoBaseVisitor<List<String>>() {
+class TopLevelStateVisitor: estadoBaseVisitor<List<String>>() {
 
     override fun visitFile(ctx: estadoParser.FileContext?): List<String> {
         return if (ctx!!.state() != null) {

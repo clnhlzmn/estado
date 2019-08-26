@@ -2,7 +2,6 @@
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.apache.commons.cli.*
-import java.io.File
 
 class Cli(val args: Array<String>) {
 
@@ -41,7 +40,9 @@ class Cli(val args: Array<String>) {
                 val context = parser.file()
 
                 //compile
-                println(context.accept(FileVisitor()))
+                val topLevelStates = context.accept(TopLevelStateVisitor())
+
+
             }
 
         } catch (e: ParseException) {
