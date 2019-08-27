@@ -2,6 +2,7 @@
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.apache.commons.cli.*
+import java.io.File
 
 class Cli(val args: Array<String>) {
 
@@ -40,15 +41,8 @@ class Cli(val args: Array<String>) {
                 val context = parser.file()
 
                 //compile
-
-                val topLevelStates = context.accept(TopLevelStateVisitor())
-                println(topLevelStates)
-
-                val subStates = context.accept(SubStateVisitor())
-                println(subStates)
-
-                val events = context.accept(EventVisitor())
-                println(events)
+                val actors = context.accept(FileVisitor())
+                print(actors)
 
             }
 

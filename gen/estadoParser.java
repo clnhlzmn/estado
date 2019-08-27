@@ -1,4 +1,4 @@
-// Generated from /Users/colinholzman/Documents/estado/src/estado.g4 by ANTLR 4.7.2
+// Generated from C:/code/estado/src\estado.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -16,27 +16,27 @@ public class estadoParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, NATURAL=8, TEXT=9, 
-		ID=10, WHITESPACE=11, COMMENT=12;
+		T__0=1, T__1=2, T__2=3, T__3=4, NATURAL=5, TEXT=6, ID=7, WHITESPACE=8, 
+		COMMENT=9;
 	public static final int
-		RULE_file = 0, RULE_state = 1, RULE_fun = 2, RULE_handler = 3;
+		RULE_file = 0, RULE_state = 1, RULE_handler = 2;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"file", "state", "fun", "handler"
+			"file", "state", "handler"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'state'", "'{'", "'}'", "'fun'", "'('", "')'", "'on'"
+			null, "'state'", "'{'", "'}'", "'on'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, "NATURAL", "TEXT", "ID", 
-			"WHITESPACE", "COMMENT"
+			null, null, null, null, null, "NATURAL", "TEXT", "ID", "WHITESPACE", 
+			"COMMENT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -98,12 +98,6 @@ public class estadoParser extends Parser {
 		public StateContext state(int i) {
 			return getRuleContext(StateContext.class,i);
 		}
-		public List<FunContext> fun() {
-			return getRuleContexts(FunContext.class);
-		}
-		public FunContext fun(int i) {
-			return getRuleContext(FunContext.class,i);
-		}
 		public FileContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -130,35 +124,21 @@ public class estadoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(12);
+			setState(9);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0 || _la==T__3) {
+			while (_la==T__0) {
 				{
-				setState(10);
-				_errHandler.sync(this);
-				switch (_input.LA(1)) {
-				case T__0:
-					{
-					setState(8);
-					state();
-					}
-					break;
-				case T__3:
-					{
-					setState(9);
-					fun();
-					}
-					break;
-				default:
-					throw new NoViableAltException(this);
+				{
+				setState(6);
+				state();
 				}
 				}
-				setState(14);
+				setState(11);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(15);
+			setState(12);
 			match(EOF);
 			}
 		}
@@ -180,12 +160,6 @@ public class estadoParser extends Parser {
 		}
 		public StateContext state(int i) {
 			return getRuleContext(StateContext.class,i);
-		}
-		public List<FunContext> fun() {
-			return getRuleContexts(FunContext.class);
-		}
-		public FunContext fun(int i) {
-			return getRuleContext(FunContext.class,i);
 		}
 		public List<HandlerContext> handler() {
 			return getRuleContexts(HandlerContext.class);
@@ -219,35 +193,29 @@ public class estadoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(17);
+			setState(14);
 			match(T__0);
-			setState(18);
+			setState(15);
 			match(ID);
-			setState(19);
+			setState(16);
 			match(T__1);
-			setState(25);
+			setState(21);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__3) | (1L << T__6))) != 0)) {
+			while (_la==T__0 || _la==T__3) {
 				{
-				setState(23);
+				setState(19);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case T__0:
 					{
-					setState(20);
+					setState(17);
 					state();
 					}
 					break;
 				case T__3:
 					{
-					setState(21);
-					fun();
-					}
-					break;
-				case T__6:
-					{
-					setState(22);
+					setState(18);
 					handler();
 					}
 					break;
@@ -255,63 +223,11 @@ public class estadoParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(27);
+				setState(23);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(28);
-			match(T__2);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class FunContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(estadoParser.ID, 0); }
-		public FunContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_fun; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof estadoListener ) ((estadoListener)listener).enterFun(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof estadoListener ) ((estadoListener)listener).exitFun(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof estadoVisitor ) return ((estadoVisitor<? extends T>)visitor).visitFun(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final FunContext fun() throws RecognitionException {
-		FunContext _localctx = new FunContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_fun);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(30);
-			match(T__3);
-			setState(31);
-			match(ID);
-			setState(32);
-			match(T__4);
-			setState(33);
-			match(T__5);
-			setState(34);
-			match(T__1);
-			setState(35);
+			setState(24);
 			match(T__2);
 			}
 		}
@@ -349,13 +265,13 @@ public class estadoParser extends Parser {
 
 	public final HandlerContext handler() throws RecognitionException {
 		HandlerContext _localctx = new HandlerContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_handler);
+		enterRule(_localctx, 4, RULE_handler);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
-			match(T__6);
-			setState(38);
+			setState(26);
+			match(T__3);
+			setState(27);
 			match(ID);
 			}
 		}
@@ -371,18 +287,15 @@ public class estadoParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\16+\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\3\2\3\2\7\2\r\n\2\f\2\16\2\20\13\2\3\2\3\2\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\7\3\32\n\3\f\3\16\3\35\13\3\3\3\3\3\3\4\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\3\5\3\5\3\5\3\5\2\2\6\2\4\6\b\2\2\2+\2\16\3\2\2\2\4\23\3\2"+
-		"\2\2\6 \3\2\2\2\b\'\3\2\2\2\n\r\5\4\3\2\13\r\5\6\4\2\f\n\3\2\2\2\f\13"+
-		"\3\2\2\2\r\20\3\2\2\2\16\f\3\2\2\2\16\17\3\2\2\2\17\21\3\2\2\2\20\16\3"+
-		"\2\2\2\21\22\7\2\2\3\22\3\3\2\2\2\23\24\7\3\2\2\24\25\7\f\2\2\25\33\7"+
-		"\4\2\2\26\32\5\4\3\2\27\32\5\6\4\2\30\32\5\b\5\2\31\26\3\2\2\2\31\27\3"+
-		"\2\2\2\31\30\3\2\2\2\32\35\3\2\2\2\33\31\3\2\2\2\33\34\3\2\2\2\34\36\3"+
-		"\2\2\2\35\33\3\2\2\2\36\37\7\5\2\2\37\5\3\2\2\2 !\7\6\2\2!\"\7\f\2\2\""+
-		"#\7\7\2\2#$\7\b\2\2$%\7\4\2\2%&\7\5\2\2&\7\3\2\2\2\'(\7\t\2\2()\7\f\2"+
-		"\2)\t\3\2\2\2\6\f\16\31\33";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\13 \4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\3\2\7\2\n\n\2\f\2\16\2\r\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\7"+
+		"\3\26\n\3\f\3\16\3\31\13\3\3\3\3\3\3\4\3\4\3\4\3\4\2\2\5\2\4\6\2\2\2\37"+
+		"\2\13\3\2\2\2\4\20\3\2\2\2\6\34\3\2\2\2\b\n\5\4\3\2\t\b\3\2\2\2\n\r\3"+
+		"\2\2\2\13\t\3\2\2\2\13\f\3\2\2\2\f\16\3\2\2\2\r\13\3\2\2\2\16\17\7\2\2"+
+		"\3\17\3\3\2\2\2\20\21\7\3\2\2\21\22\7\t\2\2\22\27\7\4\2\2\23\26\5\4\3"+
+		"\2\24\26\5\6\4\2\25\23\3\2\2\2\25\24\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2"+
+		"\2\27\30\3\2\2\2\30\32\3\2\2\2\31\27\3\2\2\2\32\33\7\5\2\2\33\5\3\2\2"+
+		"\2\34\35\7\6\2\2\35\36\7\t\2\2\36\7\3\2\2\2\5\13\25\27";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

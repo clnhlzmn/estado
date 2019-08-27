@@ -1,4 +1,4 @@
-// Generated from /Users/colinholzman/Documents/estado/src/estado.g4 by ANTLR 4.7.2
+// Generated from C:/code/estado/src\estado.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -26,16 +26,6 @@ public interface estadoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitState(estadoParser.StateContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link estadoParser#fun}.
-	 * @param ctx the parse tree
-	 */
-	void enterFun(estadoParser.FunContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link estadoParser#fun}.
-	 * @param ctx the parse tree
-	 */
-	void exitFun(estadoParser.FunContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link estadoParser#handler}.
 	 * @param ctx the parse tree

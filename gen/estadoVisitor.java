@@ -1,4 +1,4 @@
-// Generated from /Users/colinholzman/Documents/estado/src/estado.g4 by ANTLR 4.7.2
+// Generated from C:/code/estado/src\estado.g4 by ANTLR 4.7.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -21,12 +21,6 @@ public interface estadoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitState(estadoParser.StateContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link estadoParser#fun}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFun(estadoParser.FunContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link estadoParser#handler}.
 	 * @param ctx the parse tree

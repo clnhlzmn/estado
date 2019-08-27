@@ -2,15 +2,11 @@
 grammar estado;
 
 file
-    : (state | fun)* EOF
+    : state* EOF
     ;
 
 state
-    : 'state' ID '{' (state | fun | handler)* '}'
-    ;
-
-fun
-    : 'fun' ID '(' ')' '{' '}'
+    : 'state' ID '{' (state | handler)* '}'
     ;
 
 handler
