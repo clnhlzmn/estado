@@ -1,4 +1,4 @@
-// Generated from C:/code/estado/src\estado.g4 by ANTLR 4.7.2
+// Generated from /Users/colinholzman/Documents/estado/src/estado.g4 by ANTLR 4.7.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -34,6 +34,30 @@ public class estadoBaseListener implements estadoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitState(estadoParser.StateContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFun(estadoParser.FunContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFun(estadoParser.FunContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterHandler(estadoParser.HandlerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitHandler(estadoParser.HandlerContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

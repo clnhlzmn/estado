@@ -40,8 +40,15 @@ class Cli(val args: Array<String>) {
                 val context = parser.file()
 
                 //compile
-                val topLevelStates = context.accept(TopLevelStateVisitor())
 
+                val topLevelStates = context.accept(TopLevelStateVisitor())
+                println(topLevelStates)
+
+                val subStates = context.accept(SubStateVisitor())
+                println(subStates)
+
+                val events = context.accept(EventVisitor())
+                println(events)
 
             }
 
