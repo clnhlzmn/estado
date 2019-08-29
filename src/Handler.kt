@@ -1,2 +1,2 @@
 
-class Handler(val event: String)
+class Handler(val event: String, target: String?)

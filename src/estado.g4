@@ -10,7 +10,11 @@ state
     ;
 
 handler
-    : 'on' ID
+    : 'on' ID transition?
+    ;
+
+transition
+    : '->' ID
     ;
 
 NATURAL : ('0'..'9')+ ;
