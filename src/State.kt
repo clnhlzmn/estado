@@ -1,8 +1,10 @@
 
-class State(var id: String,
-            var parent: State?,
-            val subStates: List<State>,
-            val handlers: List<Handler>) {
+class State(
+    var id: String,
+    val subStates: List<State> = emptyList(),
+    val handlers: List<Handler> = emptyList(),
+    var parent: State? = null
+) {
 
     val fullName: String
         get() = (ancestors.reversed() + this).joinToString("_") { it.id }
@@ -49,13 +51,22 @@ class State(var id: String,
     }
 
     companion object {
+
+        //find the least common compound ancestor of a list of states
+        //see https://www.w3.org/TR/scxml/#AlgorithmforSCXMLInterpretation
         fun findLCCA(states: List<State>): State? {
-            if (states.isEmpty() || states.size == 1) return null
+            if (states.size <= 1) return null
             states.first().ancestors.forEach { a ->
                 if (states.drop(1).all { s -> s.isDescendant(a) }) return a
             }
             return null
         }
+
+        fun getEntrySet(source: State, target: State) =
+            listOf(target) + target.getProperAncestors(findLCCA(listOf(source, target))).reversed()
+
+        fun getExitSet(source: State, target: State) =
+            listOf(source) + source.getProperAncestors(findLCCA(listOf(source, target)))
     }
 
 }
