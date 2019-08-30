@@ -46,6 +46,16 @@ class State(
     //return true if this is descendant of state
     fun isDescendant(state: State): Boolean = ancestors.contains(state)
 
+    fun findTarget(target: String): State? {
+        //look at this+siblings, then parent+parents siblings and so on
+        return when {
+            id == target -> this
+            siblings.find { it.id == target } != null -> siblings.find { it.id == target }
+            parent != null -> parent!!.findTarget(target)
+            else -> null
+        }
+    }
+
     override fun toString(): String {
         return "State(id='$id')"
     }

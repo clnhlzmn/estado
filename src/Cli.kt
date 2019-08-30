@@ -45,8 +45,11 @@ class Cli(val args: Array<String>) {
                 if (Compiler.check(states)) {
                     states.forEachIncludingSubStates { println(Output.stateFunction(it)) }
                     println(Compiler.getEvents(states))
-                    println(Compiler.getTransitions(states))
-                    File(outputFileName).printWriter()
+                    File(outputFileName).indentedPrintWriter().use {
+                        it.println(42)
+                        it.indent += 1
+                        it.println(42)
+                    }
                 } else {
                     println("error")
                 }
