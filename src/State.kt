@@ -48,4 +48,14 @@ class State(var id: String,
         return "State(id='$id')"
     }
 
+    companion object {
+        fun findLCCA(states: List<State>): State? {
+            if (states.isEmpty() || states.size == 1) return null
+            states.first().ancestors.forEach { a ->
+                if (states.drop(1).all { s -> s.isDescendant(a) }) return a
+            }
+            return null
+        }
+    }
+
 }
