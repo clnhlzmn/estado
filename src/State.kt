@@ -26,20 +26,11 @@ class State(val id: String,
         }
     }
 
-    fun fullName(): String = (ancestors().reversed() + this).joinToString("_") { it.id }
-
-    companion object {
-        //call func for each state and sub state
-        fun forEach(states: List<State>, func:(State)->Unit) {
-            states.forEach { func(it); forEach(it.subStates, func) }
-        }
-
-        //find the target state given a source state and target state name
-        fun findTarget(states: List<State>, target: String): State? {
-            var ret: State? = null
-            forEach(states) { if (it.id == target) ret = it }
-            return ret
-        }
+    override fun toString(): String {
+        return "State(id='$id')"
     }
+
+    val fullName: String
+        get() = (ancestors().reversed() + this).joinToString("_") { it.id }
 
 }

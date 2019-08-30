@@ -1,8 +1,9 @@
 import org.omg.CORBA.TRANSACTION_MODE
+import java.lang.RuntimeException
 
 class Compiler {
 
-    class Transition(val from: State, val to: State)
+    data class Transition(val from: State, val to: State)
 
     companion object {
 
@@ -11,21 +12,26 @@ class Compiler {
                     || states.any { hasDuplicates(it.subStates) }
         }
 
-        fun check(actors: List<State>): Boolean {
+        fun check(states: List<State>): Boolean {
             //check for duplicates
-            if (hasDuplicates(actors)) return false
+            if (hasDuplicates(states)) return false
             return true
         }
 
         fun getEvents(states: List<State>): List<String> {
             val ret = ArrayList<String>()
-            State.forEach(states) { ret.addAll(it.handlers.map { it.event }) }
+            states.forEachIncludingSubStates { s -> ret.addAll(s.handlers.map { h -> h.event }) }
             return ret.toSet().toList()
         }
 
         fun getTransitions(states: List<State>): List<Transition> {
             val ret = ArrayList<Transition>()
-
+            states.forEachIncludingSubStates { s ->
+                s.handlers.filter { h -> h.target != null }.forEach { h ->
+                    val target = states.find(h.target!!) ?: throw RuntimeException("invalid target ${h.target}")
+                    ret.add(Transition(s, target))
+                }
+            }
             return ret
         }
 

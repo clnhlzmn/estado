@@ -40,10 +40,11 @@ class Cli(val args: Array<String>) {
                 val context = parser.file()
 
                 //compile
-                val actors = context.accept(FileVisitor())
-                if (Compiler.check(actors)) {
-                    State.forEach(actors) { println(Output.stateFunction(it)) }
-                    println(Compiler.getEvents(actors))
+                val states = context.accept(FileVisitor())
+                if (Compiler.check(states)) {
+                    states.forEachIncludingSubStates { println(Output.stateFunction(it)) }
+                    println(Compiler.getEvents(states))
+                    println(Compiler.getTransitions(states))
                 } else {
                     println("error")
                 }
