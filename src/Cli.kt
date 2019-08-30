@@ -2,6 +2,7 @@
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.apache.commons.cli.*
+import java.io.File
 
 class Cli(val args: Array<String>) {
 
@@ -45,6 +46,7 @@ class Cli(val args: Array<String>) {
                     states.forEachIncludingSubStates { println(Output.stateFunction(it)) }
                     println(Compiler.getEvents(states))
                     println(Compiler.getTransitions(states))
+                    File(outputFileName).printWriter()
                 } else {
                     println("error")
                 }
