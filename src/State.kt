@@ -1,11 +1,11 @@
 
-class State(val id: String,
+class State(var id: String,
             var parent: State?,
             val subStates: List<State>,
             val handlers: List<Handler>) {
 
     //returns a list of this state's ancestors starting with parents, then grandparents, etc..
-    fun ancestors(): List<State> {
+    val ancestors: List<State> get() {
         var current = this
         val iterator = object: Iterator<State> {
             override fun hasNext() = current.parent != null
@@ -17,7 +17,7 @@ class State(val id: String,
         return iterator.asSequence().toList()
     }
 
-    fun siblings(): List<State> {
+    val siblings: List<State> get() {
         return if (parent == null)
             emptyList()
         else {
@@ -31,6 +31,6 @@ class State(val id: String,
     }
 
     val fullName: String
-        get() = (ancestors().reversed() + this).joinToString("_") { it.id }
+        get() = (ancestors.reversed() + this).joinToString("_") { it.id }
 
 }
