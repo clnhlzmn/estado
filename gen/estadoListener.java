@@ -46,4 +46,26 @@ public interface estadoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTransition(estadoParser.TransitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link estadoParser#action}.
+	 * @param ctx the parse tree
+	 */
+	void enterAction(estadoParser.ActionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link estadoParser#action}.
+	 * @param ctx the parse tree
+	 */
+	void exitAction(estadoParser.ActionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code messageStatement}
+	 * labeled alternative in {@link estadoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterMessageStatement(estadoParser.MessageStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code messageStatement}
+	 * labeled alternative in {@link estadoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitMessageStatement(estadoParser.MessageStatementContext ctx);
 }

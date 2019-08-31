@@ -33,4 +33,17 @@ public interface estadoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTransition(estadoParser.TransitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link estadoParser#action}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAction(estadoParser.ActionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code messageStatement}
+	 * labeled alternative in {@link estadoParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMessageStatement(estadoParser.MessageStatementContext ctx);
 }

@@ -35,5 +35,17 @@ class Compiler {
             return ret
         }
 
+        //get the handlers that state responds to including those of parent states
+        fun getHandlers(state: State): List<Handler> {
+            val list = ArrayList<Handler>()
+            (listOf(state) + state.ancestors).reversed().forEach { s ->
+                s.handlers.forEach { h ->
+                    list.remove(h)
+                    list.add(h)
+                }
+            }
+            return list
+        }
+
     }
 }

@@ -58,6 +58,30 @@ public class estadoBaseListener implements estadoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTransition(estadoParser.TransitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAction(estadoParser.ActionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAction(estadoParser.ActionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMessageStatement(estadoParser.MessageStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMessageStatement(estadoParser.MessageStatementContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

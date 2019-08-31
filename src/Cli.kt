@@ -44,12 +44,8 @@ class Cli(val args: Array<String>) {
                 val states = context.accept(FileVisitor())
                 if (Compiler.check(states)) {
                     states.forEachIncludingSubStates { println(Output.stateFunction(it)) }
-                    println(Compiler.getEvents(states))
-                    File(outputFileName).indentedPrintWriter().use {
-                        it.println(42)
-                        it.indent += 1
-                        it.println(42)
-                    }
+                    println(Output.events(states))
+
                 } else {
                     println("error")
                 }

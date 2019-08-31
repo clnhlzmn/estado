@@ -10,11 +10,20 @@ state
     ;
 
 handler
-    : 'on' ID transition?
+    : 'on' ID transition? action?
     ;
 
 transition
     : '->' ID
+    ;
+
+action
+    : '{' statement* '}'
+    | statement
+    ;
+
+statement
+    : ID '<-' ID        #messageStatement
     ;
 
 NATURAL : ('0'..'9')+ ;
