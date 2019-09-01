@@ -28,7 +28,7 @@ class Cli(val args: Array<String>) {
             } else {
                 //cli values
                 val inputFileName = cmd.getOptionValue("i")!!
-                val outputFileName = cmd.getOptionValue("o")
+                val outputFileName: String? = cmd.getOptionValue("o")
                 val debug = cmd.hasOption("d")
 
                 //parser
@@ -43,9 +43,19 @@ class Cli(val args: Array<String>) {
                 //compile
                 val states = context.accept(FileVisitor())
                 if (Compiler.check(states)) {
-                    states.forEachIncludingSubStates { println(Output.stateFunction(it)) }
-                    println(Output.events(states))
+                    if (outputFileName != null) {
+                        File(outputFileName).indentedPrintWriter().use { out ->
+                            out.println("include \"ert.c\"")
+                            out.println()
+                            out.println(Output.events(states))
+                            out.println()
+                            states.forEachIncludingSubStates { s -> out.println(Output.stateDeclaration(s)) }
+                            out.println()
+                            states.forEachIncludingSubStates { s -> out.println(Output.stateDefinition(s)) }
+                        }
+                    } else {
 
+                    }
                 } else {
                     println("error")
                 }

@@ -6,11 +6,18 @@ class Output {
                "    " + Compiler.getEvents(states).joinToString(",\n    ") + "\n" +
                "};"
         }
-        fun stateFunction(state: State): String {
+        fun stateDeclaration(state: State): String {
+            return "void state_${state.fullName}(struct pair *, intptr_t);"
+        }
+        fun stateDefinition(state: State): String {
             return "void state_${state.fullName}(struct pair *instance, intptr_t event) {\n" +
-            "    switch (event) {\n" +
-            "    }\n" +
+                Compiler.getHandlers(state).map { handler(it) }.joinToString(" else ") + "\n" +
             "}"
+        }
+        fun handler(handler: Handler): String {
+            return "    if (event == ${handler.event}) {\n" +
+                   "        printf(\"handled ${handler.event}\");\n" +
+                   "    }"
         }
     }
 }
