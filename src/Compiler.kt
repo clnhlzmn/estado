@@ -12,9 +12,14 @@ class Compiler {
                     || states.any { hasDuplicates(it.subStates) }
         }
 
+        private fun hasDuplicateHandlers(state: State): Boolean {
+            return state.handlers.groupingBy { it.event }.eachCount().any { it.value > 1 }
+        }
+
         fun check(states: List<State>): Boolean {
             //check for duplicates
             if (hasDuplicates(states)) return false
+            if (states.flatten().map { hasDuplicateHandlers(it) }.any()) return false
             return true
         }
 

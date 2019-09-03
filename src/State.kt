@@ -83,6 +83,16 @@ class State(
 
         fun getExitSet(source: State, target: State) =
             listOf(source) + source.getProperAncestors(findLCCA(listOf(source, target)))
+
+        //get the entry event handlers for the given entry set
+        fun getEntryHandlers(entrySet: List<State>): List<Handler> {
+            return entrySet.map{ it.handlers }.flatten().filter { it.event == "entry" }
+        }
+
+        //get the exit event handlers for the given exit set
+        fun getExitHandlers(exitSet: List<State>): List<Handler> {
+            return exitSet.map{ it.handlers }.flatten().filter { it.event == "exit" }
+        }
     }
 
 }
