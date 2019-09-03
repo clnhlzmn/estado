@@ -15,6 +15,13 @@ class Output {
             "}"
         }
         fun handler(state: State, handler: Handler): String {
+            if (state.parent == null && handler.event == "entry") {
+                //initialization of this instance, have to enter all initial substates
+            } else if (handler.target != null) {
+                //handler has transition, do exit actions for exit set, handler action, and entry actions for entry set
+            } else {
+                //just do handler action
+            }
             return "if (event == ${handler.event}) {\n" +
                    "        printf(\"handled ${handler.event}\");\n" +
                    "    }"

@@ -41,8 +41,14 @@ class Compiler {
             return ret
         }
 
-        //get the handlers that state responds to including those of parent states
+        //get the list of handlers that an instance of the given state will actually see at runtime
+        //(may be different than the handlers listed in the state definition)
         fun getHandlers(state: State): List<Handler> {
+            if (state.parent == null) {
+                //top level state, include entry events
+            } else {
+                //don't include entry and exit events
+            }
             return (listOf(state) + state.ancestors).map { it.handlers }.flatten()
         }
 
