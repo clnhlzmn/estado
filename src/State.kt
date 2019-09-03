@@ -60,6 +60,12 @@ class State(
         return "State(id='$id')"
     }
 
+    //gets a list of the substates that should be entered when entering this
+    fun getInitialEntrySet(): List<State> {
+        return if (subStates.isEmpty()) emptyList()
+        else listOf(subStates.first()) + subStates.first().getInitialEntrySet()
+    }
+
     companion object {
 
         //find the least common compound ancestor of a list of states

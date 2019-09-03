@@ -21,6 +21,7 @@ class Compiler {
         fun getEvents(states: List<State>): List<String> {
             val ret = ArrayList<String>()
             states.forEachIncludingSubStates { s -> ret.addAll(s.handlers.map { h -> h.event }) }
+            ret.addAll(listOf("entry", "exit"))
             return ret.toSet().toList()
         }
 
