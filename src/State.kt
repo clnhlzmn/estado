@@ -66,6 +66,12 @@ class State(
         else listOf(subStates.first()) + subStates.first().getInitialEntrySet()
     }
 
+    val top: Boolean
+        get() = parent == null
+
+    val atomic: Boolean
+        get() = subStates.isEmpty()
+
     companion object {
 
         //find the least common compound ancestor of a list of states

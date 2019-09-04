@@ -49,9 +49,9 @@ class Cli(val args: Array<String>) {
                             out.println()
                             out.println(Output.events(states))
                             out.println()
-                            states.forEachIncludingSubStates { s -> out.println(Output.stateDeclaration(s)) }
+                            states.flatten().filter { it.top || it.atomic }.forEach { s -> out.println(Output.stateDeclaration(s)) }
                             out.println()
-                            states.forEachIncludingSubStates { s -> out.println(Output.stateDefinition(s)) }
+                            states.flatten().filter { it.top || it.atomic }.forEach { s -> out.println(Output.stateDefinition(s)) }
                         }
                     } else {
 
