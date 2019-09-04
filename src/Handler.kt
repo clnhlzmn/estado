@@ -1,5 +1,5 @@
 
-class Handler(val event: String, val target: String? = null) {
+class Handler(val event: String, val target: String? = null, val actions: List<Statement> = emptyList()) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
