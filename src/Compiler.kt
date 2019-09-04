@@ -1,4 +1,3 @@
-import org.omg.CORBA.TRANSACTION_MODE
 import java.lang.RuntimeException
 
 class Compiler {
@@ -45,11 +44,27 @@ class Compiler {
         //(may be different than the handlers listed in the state definition)
         fun getHandlers(state: State): List<Handler> {
             if (state.parent == null) {
-                //top level state, include entry events
+                //top level state, include entry events and not exit
+                val entryHandlers = (listOf(state) + state.getInitialEntrySet())
+                    .map { it.handlers }.flatten().filter { it.event == "entry" }
+                //TODO combine entry handlers into one handler with all actions
+                val newEntryHandler = Handler("entry")
+                //add combined entry handler to list and remove original if present
+                return listOf(newEntryHandler) + state.handlers
+                    .filterNot { it.event == "entry" || it.event == "exit" }
+            } else if (state.subStates.isEmpty()) {
+                //leaf state, include exit and not entry events
+                val exitHandlers = (listOf(state) + state.ancestors)
+                    .map { it.handlers }.flatten().filter { it.event == "exit" }
+                //TODO combine exit handlers into one handler with all actions
+                val combinedExitHandler = Handler("exit")
+                //add combined exit handler to list and remove original if present
+                return listOf(combinedExitHandler) + state.handlers
+                    .filterNot { it.event == "entry" || it.event == "exit" }
             } else {
                 //don't include entry and exit events
-            }
-            return (listOf(state) + state.ancestors).map { it.handlers }.flatten()
+                return (listOf(state) + state.ancestors).map { it.handlers }.flatten()
+                    .filterNot { it.event == "entry" || it.event == "exit" }            }
         }
 
     }
