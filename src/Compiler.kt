@@ -47,22 +47,17 @@ class Compiler {
                 state.top -> {
                     val entryHandlers = (listOf(state) + state.getInitialEntrySet())
                         .map { it.handlers }.flatten().filter { it.event == "entry" }
-                    //TODO combine entry handlers into one handler with all actions
-                    val combinedEntryHandler = Handler("entry")
-                    return listOf(combinedEntryHandler) + state.handlers
-                        .filterNot { it.event == "entry" || it.event == "exit" }
+                    val combinedEntryHandler = Handler("entry", null, entryHandlers.map { it.actions }.flatten())
+                    return listOf(combinedEntryHandler)
                 }
                 state.atomic -> {
-                    val exitHandlers = (listOf(state) + state.ancestors)
-                        .map { it.handlers }.flatten().filter { it.event == "exit" }
-                    //TODO combine exit handlers into one handler with all actions
-                    val combinedExitHandler = Handler("exit")
-                    return listOf(combinedExitHandler) + state.handlers
+                    val stateAndParents = (listOf(state) + state.ancestors)
+                    val exitHandlers = stateAndParents.map { it.handlers }.flatten().filter { it.event == "exit" }
+                    val combinedExitHandler = Handler("exit", null, exitHandlers.map { it.actions }.flatten())
+                    return listOf(combinedExitHandler) + stateAndParents.map { it.handlers }.flatten()
                         .filterNot { it.event == "entry" || it.event == "exit" }
                 }
-                else ->
-                    return (listOf(state) + state.ancestors).map { it.handlers }.flatten()
-                        .filterNot { it.event == "entry" || it.event == "exit" }
+                else -> return emptyList()
             }
         }
 
