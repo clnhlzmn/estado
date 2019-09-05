@@ -43,18 +43,15 @@ class Cli(val args: Array<String>) {
                 //compile
                 val states = context.accept(FileVisitor())
                 if (Compiler.check(states)) {
+                    Compiler().apply {  }
                     if (outputFileName != null) {
-                        File(outputFileName).indentedPrintWriter().use { out ->
-                            out.println("include \"ert.c\"")
-                            out.println()
-                            out.println(Output.events(states))
-                            out.println()
-                            states.flatten().filter { it.top || it.atomic }.forEach { s -> out.println(Output.stateDeclaration(s)) }
-                            out.println()
-                            states.flatten().filter { it.top || it.atomic }.forEach { s -> out.println(Output.stateDefinition(s)) }
+                        File(outputFileName).indentedPrintWriter().use { it ->
+                            Output.program(states, it)
                         }
                     } else {
-
+                        IndentedPrintWriter(System.out.writer()).use {
+                            Output.program(states, it)
+                        }
                     }
                 } else {
                     println("error")

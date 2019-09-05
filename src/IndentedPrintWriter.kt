@@ -18,6 +18,12 @@ class IndentedPrintWriter(writer: Writer): PrintWriter(writer) {
         write(indented, 0, indented.length)
     }
 
+    fun indent(block: IndentedPrintWriter.()->Unit) {
+        indent++
+        block()
+        indent--
+    }
+
 }
 
 fun File.indentedPrintWriter(charset: Charset = Charsets.UTF_8): IndentedPrintWriter =

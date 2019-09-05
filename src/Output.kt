@@ -1,10 +1,18 @@
 
 class Output {
     companion object {
-        fun events(states: List<State>): String {
-            return "enum event {\n" +
-               "    " + Compiler.getEvents(states).joinToString(",\n    ") + "\n" +
-               "};"
+        fun program(states: List<State>, out: IndentedPrintWriter) {
+            out.println("#include \"ert.c\"")
+            events(states, out)
+            states.flatten().filter { it.top || it.atomic }.forEach { s -> out.println(Output.stateDeclaration(s)) }
+            states.flatten().filter { it.top || it.atomic }.forEach { s -> out.println(Output.stateDefinition(s)) }
+        }
+        fun events(states: List<State>, out: IndentedPrintWriter) {
+            out.println("enum event {")
+            out.indent {
+                Compiler.getEvents(states).forEach { println(it) }
+            }
+            out.println("};")
         }
         fun stateDeclaration(state: State): String {
             return "void state_${state.fullName}(struct pair *, intptr_t);"
