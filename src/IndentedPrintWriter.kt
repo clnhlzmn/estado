@@ -20,7 +20,7 @@ class IndentedPrintWriter(writer: Writer): PrintWriter(writer) {
 
     fun indent(block: IndentedPrintWriter.()->Unit) {
         indent++
-        block()
+        block(this)
         indent--
     }
 
