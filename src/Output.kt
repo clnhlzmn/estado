@@ -33,11 +33,13 @@ class Output {
         }
 
         fun events(states: List<State>, out: IndentedPrintWriter) {
-            out.println("enum event {")
-            out.indent {
-                Compiler.getEvents(states).forEach { println("$it,") }
+            out.apply {
+                println("enum event {")
+                indent {
+                    Compiler.getEvents(states).forEach { println("$it,") }
+                }
+                println("};")
             }
-            out.println("};")
         }
 
         fun stateDeclaration(state: State, out: IndentedPrintWriter) {
@@ -45,11 +47,13 @@ class Output {
         }
 
         fun stateDefinition(state: State, out: IndentedPrintWriter) {
-            out.println("void state_${state.fullName}(struct pair *instance, intptr_t event) {")
-            out.indent {
-                Compiler.getHandlers(state).forEach { handler(state, it, this) }
+            out.apply {
+                println("void state_${state.fullName}(struct pair *instance, intptr_t event) {")
+                indent {
+                    Compiler.getHandlers(state).forEach { handler(state, it, this) }
+                }
+                println("}")
             }
-            out.println("}")
         }
 
         fun handler(state: State, handler: Handler, out: IndentedPrintWriter) {
@@ -60,12 +64,14 @@ class Output {
             } else {
                 //just do handler action
             }
-            out.println("if (event == ${handler.event}) {")
-            out.indent {
-                println("printf(\"handled ${handler.event}\");")
-                println("return;")
+            out.apply {
+                println("if (event == ${handler.event}) {")
+                indent {
+                    println("printf(\"handled ${handler.event}\");")
+                    println("return;")
+                }
+                println("}")
             }
-            out.println("}")
         }
     }
 }
