@@ -50,25 +50,44 @@ class Output {
             out.apply {
                 println("void state_${state.fullName}(struct pair *instance, intptr_t event) {")
                 indent {
-                    Compiler.getHandlers(state).forEach { handler(state, it, this) }
+                    val handlers = Compiler.getHandlers(state).groupBy { it.event }
+                    println("switch (event) {")
+                    indent {
+                        handlers.forEach { handler(state, it.value[0], this) }
+                    }
+                    println("}")
                 }
                 println("}")
             }
         }
 
         fun handler(state: State, handler: Handler, out: IndentedPrintWriter) {
-            if (state.parent == null && handler.event == "entry") {
-                //initialization of this instance, have to enter all initial substates
-            } else if (handler.target != null) {
-                //handler has transition, do exit actions for exit set, handler action, and entry actions for entry set
-            } else {
-                //just do handler action
-            }
             out.apply {
-                println("if (event == ${handler.event}) {")
+                println("case ${handler.event}: {")
                 indent {
-                    println("printf(\"handled ${handler.event}\");")
-                    println("return;")
+                    if (state.top && handler.event == "entry") {
+                        //initialization of this instance, have to enter all initial substates
+                        (listOf(state) + state.getInitialEntrySet()).forEach {
+                            println("printf(\"entered ${it.fullName}\\n\");")
+                        }
+                    } else if (handler.target != null) {
+                        //handler has transition, do exit actions for exit set, handler action, and entry actions for entry set
+                        val target = state.findTarget(handler.target)
+                        if (target == null) throw RuntimeException("invalid target ${handler.target} in ${state.fullName}")
+                        val exitSet = State.getExitSet(state, target)
+                        val entrySet = State.getEntrySet(state, target)
+                        exitSet.forEach {
+                            println("printf(\"exited ${it.fullName}\\n\");")
+                        }
+                        println("printf(\"handled ${handler.event} in ${state.fullName}\\n\");")
+                        entrySet.forEach {
+                            println("printf(\"entered ${it.fullName}\\n\");")
+                        }
+                    } else {
+                        //just do handler action
+                        println("printf(\"handled ${handler.event} in ${state.fullName}\\n\");")
+                    }
+                    println("break;")
                 }
                 println("}")
             }

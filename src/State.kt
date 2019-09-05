@@ -85,7 +85,8 @@ class State(
         }
 
         fun getEntrySet(source: State, target: State) =
-            (listOf(target) + target.getProperAncestors(findLCCA(listOf(source, target)))).reversed()
+            (listOf(target) + target.getProperAncestors(findLCCA(listOf(source, target)))).reversed() +
+                    target.getInitialEntrySet()
 
         fun getExitSet(source: State, target: State) =
             listOf(source) + source.getProperAncestors(findLCCA(listOf(source, target)))
