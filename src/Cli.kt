@@ -43,7 +43,6 @@ class Cli(val args: Array<String>) {
                 //compile
                 val states = context.accept(FileVisitor())
                 if (Compiler.check(states)) {
-                    Compiler().apply {  }
                     if (outputFileName != null) {
                         File(outputFileName).indentedPrintWriter().use { it ->
                             Output.program(states, it)

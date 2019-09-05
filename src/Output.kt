@@ -3,16 +3,39 @@ class Output {
     companion object {
 
         fun program(states: List<State>, out: IndentedPrintWriter) {
-            out.println("#include \"ert.c\"")
-            events(states, out)
-            states.flatten().filter { it.top || it.atomic }.forEach { s -> stateDeclaration(s, out) }
-            states.flatten().filter { it.top || it.atomic }.forEach { s -> stateDefinition(s, out) }
+            out.apply {
+                println("#include <stdio.h>")
+                println("#include \"ert.c\"")
+                events(states, this)
+                states.flatten().filter { it.top || it.atomic }.forEach { s -> stateDeclaration(s, this) }
+                states.flatten().filter { it.top || it.atomic }.forEach { s -> stateDefinition(s, this) }
+                println("int main(void) {")
+                indent {
+                    println("ert_init();")
+                    println("struct pair *main_instance = ert_lalloc(1);")
+                    println("*ert_index(main_instance, 0) = (intptr_t)state_Main;")
+                    println("ert_send_event(main_instance, entry);")
+                    println("while (1) {")
+                    indent {
+                        println("struct pair *instance = NULL;")
+                        println("intptr_t event = 0;")
+                        println("if (ert_deque_event(&instance, &event) == 0) {")
+                        indent {
+                            println("void (*state)(struct pair *, intptr_t) = (void (*)(struct pair *, intptr_t))*ert_index(instance, 0);")
+                            println("state(instance, event);")
+                        }
+                        println("}")
+                    }
+                    println("}")
+                }
+                println("}")
+            }
         }
 
         fun events(states: List<State>, out: IndentedPrintWriter) {
             out.println("enum event {")
             out.indent {
-                Compiler.getEvents(states).forEach { println(it) }
+                Compiler.getEvents(states).forEach { println("$it,") }
             }
             out.println("};")
         }
