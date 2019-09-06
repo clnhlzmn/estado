@@ -46,4 +46,10 @@ public interface estadoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMessageStatement(estadoParser.MessageStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link estadoParser#instance}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstance(estadoParser.InstanceContext ctx);
 }

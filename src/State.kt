@@ -3,7 +3,8 @@ class State(
     var id: String,
     val subStates: List<State> = emptyList(),
     val handlers: List<Handler> = emptyList(),
-    var parent: State? = null
+    var parent: State? = null,
+    val instances: List<Pair<String, String>> = emptyList()
 ) {
 
     val fullName: String

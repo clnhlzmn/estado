@@ -6,7 +6,7 @@ file
     ;
 
 state
-    : 'state' ID '{' (state | handler)* '}'
+    : 'state' ID '{' (instance | state | handler)* '}'
     ;
 
 handler
@@ -24,6 +24,10 @@ action
 
 statement
     : ID '<-' ID        #messageStatement
+    ;
+
+instance
+    : ID ':' ID
     ;
 
 NATURAL : ('0'..'9')+ ;

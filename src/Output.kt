@@ -73,7 +73,7 @@ class Output {
                     } else if (handler.target != null) {
                         //handler has transition, do exit actions for exit set, handler action, and entry actions for entry set
                         val target = state.findTarget(handler.target)
-                        if (target == null) throw RuntimeException("invalid target ${handler.target} in ${state.fullName}")
+                            ?: throw RuntimeException("invalid target ${handler.target} in ${state.fullName}")
                         val exitSet = State.getExitSet(state, target)
                         val entrySet = State.getEntrySet(state, target)
                         exitSet.forEach {
