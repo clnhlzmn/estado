@@ -1,3 +1,8 @@
+package estado.grammar
+
+import estadoBaseVisitor
+import estadoParser
+
 class EventVisitor: estadoBaseVisitor<Set<String>>() {
     override fun visitFile(ctx: estadoParser.FileContext?): Set<String> =
         ctx!!.state()

@@ -1,3 +1,8 @@
+package estado.grammar
+
+import estado.ast.nodes.State
+import estadoBaseVisitor
+import estadoParser
 
 class StateVisitor: estadoBaseVisitor<State>() {
     override fun visitState(ctx: estadoParser.StateContext?): State {

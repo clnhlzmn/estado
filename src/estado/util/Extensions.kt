@@ -1,3 +1,6 @@
+package estado.util
+
+import estado.ast.nodes.State
 
 fun List<State>.forEachIncludingSubStates(func: (State)->Unit): Unit =
     forEach {

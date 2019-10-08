@@ -1,3 +1,4 @@
+import estado.ast.nodes.State
 import org.junit.jupiter.api.Assertions.*
 
 internal class StateTest {

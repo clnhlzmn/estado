@@ -1,3 +1,4 @@
+package estado.ast.nodes
 
 class State(
     var id: String,
@@ -58,7 +59,7 @@ class State(
     }
 
     override fun toString(): String {
-        return "State(id='$id')"
+        return "estado.ast.nodes.State(id='$id')"
     }
 
     //gets a list of the substates that should be entered when entering this
@@ -75,7 +76,7 @@ class State(
 
     companion object {
 
-        //find the least common compound ancestor of a list of states
+        //estado.util.find the least common compound ancestor of a list of states
         //see https://www.w3.org/TR/scxml/#AlgorithmforSCXMLInterpretation
         fun findLCCA(states: List<State>): State? {
             if (states.size <= 1) return null
@@ -86,11 +87,25 @@ class State(
         }
 
         fun getEntrySet(source: State, target: State) =
-            (listOf(target) + target.getProperAncestors(findLCCA(listOf(source, target)))).reversed() +
+            (listOf(target) + target.getProperAncestors(
+                findLCCA(
+                    listOf(
+                        source,
+                        target
+                    )
+                )
+            )).reversed() +
                     target.getInitialEntrySet()
 
         fun getExitSet(source: State, target: State) =
-            listOf(source) + source.getProperAncestors(findLCCA(listOf(source, target)))
+            listOf(source) + source.getProperAncestors(
+                findLCCA(
+                    listOf(
+                        source,
+                        target
+                    )
+                )
+            )
 
         //get the entry event handlers for the given entry set
         fun getEntryHandlers(entrySet: List<State>): List<Handler> {

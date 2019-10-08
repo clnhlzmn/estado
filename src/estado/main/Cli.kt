@@ -1,4 +1,10 @@
-
+package estado.main
+import estado.grammar.FileVisitor
+import estado.grammar.ThrowingErrorListener
+import estado.util.IndentedPrintWriter
+import estado.util.indentedPrintWriter
+import estadoLexer
+import estadoParser
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.apache.commons.cli.*
@@ -42,18 +48,14 @@ class Cli(val args: Array<String>) {
 
                 //compile
                 val states = context.accept(FileVisitor())
-                if (Compiler.check(states)) {
-                    if (outputFileName != null) {
-                        File(outputFileName).indentedPrintWriter().use { it ->
-                            Output.program(states, it)
-                        }
-                    } else {
-                        IndentedPrintWriter(System.out.writer()).use {
-                            Output.program(states, it)
-                        }
+                if (outputFileName != null) {
+                    File(outputFileName).indentedPrintWriter().use { it ->
+
                     }
                 } else {
-                    println("error")
+                    IndentedPrintWriter(System.out.writer()).use {
+
+                    }
                 }
 
             }
